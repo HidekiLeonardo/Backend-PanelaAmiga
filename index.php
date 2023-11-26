@@ -1,7 +1,7 @@
 <?php
 // Verifica se os dados foram recebidos corretamente
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recupera os dados enviados pelo formulário
+    // Recupera os dados enviados pelo formulário de registro
     $email = $_POST['E-mail'];
     $senha = $_POST['Senha'];
     $nome = $_POST['Nome'];
@@ -12,12 +12,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $complemento = $_POST['complemento'];
     $telefone = $_POST['campo_contato'];
 
-    // Aqui você pode realizar a lógica de processamento com os dados recebidos
-    // Por exemplo, salvar no banco de dados, enviar por e-mail, etc.
+    // Concatena os dados em uma string
+    $dados = "E-mail: $email\nSenha: $senha\nNome: $nome\nData de Nascimento: $dataNascimento\nEstado: $estado\nEndereço: $endereco\nNúmero: $numero\nComplemento: $complemento\nTelefone: $telefone\n\n";
 
-    // Responde com uma mensagem de confirmação (simulada)
-    $response = "Dados recebidos com sucesso!\nE-mail: $email\nSenha: $senha\nNome: $nome\nData de Nascimento: $dataNascimento\nEstado: $estado\nEndereço: $endereco\nNúmero: $numero\nComplemento: $complemento\nTelefone: $telefone";
-    echo $response;
+    // Caminho do arquivo onde os dados serão salvos
+    $caminhoArquivo = 'dados_registrados.txt';
+
+    // Abre o arquivo (ou cria se não existir) para escrita
+    $arquivo = fopen($caminhoArquivo, 'a');
+
+    // Escreve os dados no arquivo
+    if ($arquivo) {
+        fwrite($arquivo, $dados);
+        fclose($arquivo);
+        echo "Dados registrados com sucesso!";
+    } else {
+        echo "Erro ao abrir o arquivo.";
+    }
 } else {
     echo "Erro: Método não suportado.";
 }
