@@ -2,7 +2,7 @@
 // Configuração do banco de dados
 $servidor = 'localhost';
 $nomeUsuario = 'root';
-$senha = '';
+$senha = ''; // Coloque a senha do seu banco, se houver
 $nomeBanco = 'bdpanelaamiga';
 
 try {
