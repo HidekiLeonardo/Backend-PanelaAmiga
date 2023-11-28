@@ -1,15 +1,18 @@
 <?php
-// Configuração do banco de dados
 $servidor = 'localhost';
 $nomeUsuario = 'root';
-$senha = ''; // Coloque a senha do seu banco, se houver
+$senha = '';
 $nomeBanco = 'bdpanelaamiga';
+try {
+    $conexao = new PDO("mysql:host=$servidor;dbname=$nomeBanco", $nomeUsuario, $senha);
+    $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Erro na conexão: " . $e->getMessage();
+}
+?>
 
 try {
-    // Conexão com o banco de dados utilizando PDO
     $conexao = new PDO("mysql:host=$servidor;dbname=$nomeBanco", $nomeUsuario, $senha);
-
-    // Define o modo de erro do PDO como exceção
     $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Verifica se os dados foram recebidos corretamente
@@ -25,12 +28,10 @@ try {
         $complemento = $_POST['complemento'];
         $telefone = $_POST['campo_contato'];
 
-        // Prepara a query SQL para inserção de dados
         $sql = "INSERT INTO userPanelaAmiga (email, senha, nome, data_nascimento, estado, endereco, numero, complemento, telefone)
                 VALUES (:email, :senha, :nome, :dataNascimento, :estado, :endereco, :numero, :complemento, :telefone)";
         $stmt = $conexao->prepare($sql);
 
-        // Executa a query, passando os valores dos parâmetros
         $stmt->execute(array(
             ':email' => $email,
             ':senha' => $senha,
@@ -43,7 +44,6 @@ try {
             ':telefone' => $telefone
         ));
 
-        // Retorna uma mensagem de sucesso
         echo "Dados registrados com sucesso!";
     } else {
         echo "Erro: Método não suportado.";
