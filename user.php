@@ -2,18 +2,17 @@
 include_once('conexao.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['E-mail'];
-    $senha = $_POST['Senha'];
-    $nome = $_POST['Nome'];
-    $dataNascimento = $_POST['Datanascimento'];
-    $estado = $_POST['campo_estado'];
-    $endereco = $_POST['endereço'];
-    $numero = $_POST['numero'];
-    $complemento = $_POST['complemento'];
-    $telefone = $_POST['campo_contato'];
+    $email = isset($_POST['E-mail']) ? $_POST['E-mail'] : '';
+    $senha = isset($_POST['Senha']) ? $_POST['Senha'] : '';
+    $nome = isset($_POST['Nome']) ? $_POST['Nome'] : '';
+    $dataNascimento = isset($_POST['Datanascimento']) ? $_POST['Datanascimento'] : '';
+    $estado = isset($_POST['campo_estado']) ? $_POST['campo_estado'] : '';
+    $endereco = isset($_POST['endereço']) ? $_POST['endereço'] : '';
+    $numero = isset($_POST['numero']) ? $_POST['numero'] : '';
+    $complemento = isset($_POST['complemento']) ? $_POST['complemento'] : '';
+    $telefone = isset($_POST['campo_contato']) ? $_POST['campo_contato'] : '';
 
-    
-    $sql = "INSERT INTO userpanelaamiga (email, senha, nome, data_nascimento, estado, endereco, numero, complemento, telefone)
+    $sql = "INSERT INTO userPanelaAmiga (email, senha, nome, data_nascimento, estado, endereco, numero, complemento, telefone)
             VALUES (:email, :senha, :nome, :dataNascimento, :estado, :endereco, :numero, :complemento, :telefone)";
     $stmt = $conexao->prepare($sql);
 
