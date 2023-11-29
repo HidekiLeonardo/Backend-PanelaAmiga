@@ -1,5 +1,5 @@
 <?php
-$servidor = 'localhost';
+$servidor = '127.0.0.1';
 $nomeUsuario = 'root';
 $senha = '';
 $nomeBanco = 'bdpanelaamiga';
